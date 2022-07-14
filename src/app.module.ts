@@ -1,37 +1,65 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-// import { ConfigModule } from '@nestjs/config';
-// import { Neo4jModule } from 'nest-neo4j';
-import { NeogqlModule } from './neogql/neogql.module';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { AuthModule } from './auth/auth.module';
+import { AccountModule } from './account/account.module';
+import { EncryptionModule } from './encryption/encryption.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Neo4jModule } from './neo4j/neo4j.module';
+import { Neo4jConfig } from './neo4j/neo4j-config.interface';
+import { upperDirectiveTransformer } from './graphql/directives/upper-case.directive';
+import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { join } from 'path';
-import { NeogqlResolver } from './neogql/neogql.resolver';
-import { ApolloDriver } from '@nestjs/apollo';
 
 @Module({
   imports: [
-    // ConfigModule.forRoot({isGlobal: true}),
-    // Neo4jModule.forRoot({
-    //   scheme: 'bolt',
-    //   host: 'neo4j',
-    //   port: 7687,
-    //   username: 'neo4j',
-    //   password: 'connect'
+    // GraphQLModule.forRoot({
+    //   driver: ApolloDriver,
+    //   debug: false,
+    //   playground: true,
+    //   typePaths: ['./**/*.graphql'],
+    //   definitions: {
+    //     path: join(process.cwd(), 'src/graphql.ts'),
+    //     outputAs: 'class',
+    //   },
     // }),
-    GraphQLModule.forRoot({
+    GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      debug: false,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: true,
-      typePaths: ['./**/*.graphql'],
-      definitions: {
-        path: join(process.cwd(), 'src/graphql.ts'),
-        outputAs: 'class',
+      transformSchema: schema => upperDirectiveTransformer(schema, 'upper'),
+      installSubscriptionHandlers: true,
+      buildSchemaOptions: {
+        directives: [
+          new GraphQLDirective({
+            name: 'upper',
+            locations: [DirectiveLocation.FIELD_DEFINITION],
+          }),
+        ],
       },
     }),
-    NeogqlModule
+    AuthModule,
+    AccountModule,
+    EncryptionModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    Neo4jModule.forRootAsync({
+      imports: [ ConfigModule ],
+      inject: [ ConfigService, ],
+      useFactory: (configService: ConfigService) : Neo4jConfig => ({
+        scheme: configService.get('NEO4J_SCHEME'),
+        host: configService.get('NEO4J_HOSTNAME'),
+        port: configService.get('NEO4J_BOLT_PORT'),
+        username: configService.get('NEO4J_USERNAME'),
+        password: configService.get('NEO4J_PASSWORD'),
+        database: configService.get('NEO4J_DATABASE'),
+      })
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService, NeogqlResolver],
+  providers: [
+    AppService
+  ],
 })
 export class AppModule {}
