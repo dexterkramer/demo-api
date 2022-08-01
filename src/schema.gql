@@ -24,13 +24,25 @@ type CreateAccountType {
   access_token: String!
 }
 
+"""Account"""
+type LoginResponseType {
+  account: Account!
+  access_token: String!
+}
+
 type Query {
   account(email: String!): Account!
   accounts: [Account!]!
 }
 
 type Mutation {
+  login(loginUserInput: LoginUserInput!): LoginResponseType!
   createAccount(newAccount: CreateAccountInput!): CreateAccountType!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
 }
 
 input CreateAccountInput {

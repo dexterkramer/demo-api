@@ -14,7 +14,6 @@ export class AuthService {
 
   async validateUser(email: string, password: string) {
     const account = await this.accountService.findByEmail(email);
-
     if ( account !== undefined && await this.encryptionService.compare(password, account.password) ) {
         return account;
     }
@@ -22,10 +21,12 @@ export class AuthService {
     return null;
   }
 
-  async login(account: any) {
-    const payload = { username: account.username, sub: account.userId };
+  async login(email: string) {
+    const account = await this.accountService.findByEmail(email);
+    const payload = { username: account.email, sub: account.id };
     return {
       access_token: this.jwtService.sign(payload),
+      account: account
     };
   }
 

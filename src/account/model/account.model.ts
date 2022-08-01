@@ -8,7 +8,8 @@ export class Account {
         this.creationDate = (<Record<string, any>> node.properties).creationDate;
         this.email = (<Record<string, any>> node.properties).email;
         this.firstname = (<Record<string, any>> node.properties).firstname;
-        this.creationDate = (<Record<string, any>> node.properties).lastname;
+        this.lastname = (<Record<string, any>> node.properties).lastname;
+        this.password = (<Record<string, any>> node.properties).password;
     }
 
     toJson(): Record<string, any> {
@@ -17,7 +18,8 @@ export class Account {
             email: this.email, 
             firstname : this.firstname, 
             lastname: this.lastname,
-            creationDate: this.creationDate
+            creationDate: this.creationDate,
+            password: this.password
         };
     }
 

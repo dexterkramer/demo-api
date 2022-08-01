@@ -15,47 +15,47 @@ export class AuthController {
         private readonly accountService: AccountService
     ) { }
 
-    @UseInterceptors(Neo4jTransactionInterceptor)
-    @UsePipes(ValidationPipe)
-    @Post('register')
-    async postRegister(@Body() createAccountDto: CreateAccountDto, @Request() req) {
-        const transaction: Transaction = req.transaction
+    // @UseInterceptors(Neo4jTransactionInterceptor)
+    // @UsePipes(ValidationPipe)
+    // @Post('register')
+    // async postRegister(@Body() createAccountDto: CreateAccountDto, @Request() req) {
+    //     const transaction: Transaction = req.transaction
 
-        const account = await this.accountService.create(
-            transaction,
-            createAccountDto.email,
-            createAccountDto.password,
-            createAccountDto.firstName,
-            createAccountDto.lastName
-        )
+    //     const account = await this.accountService.create(
+    //         transaction,
+    //         createAccountDto.email,
+    //         createAccountDto.password,
+    //         createAccountDto.firstName,
+    //         createAccountDto.lastName
+    //     )
 
-        const { access_token } = await this.authService.createToken(account)
+    //     const { access_token } = await this.authService.createToken(account)
 
-        return {
-            ...account.toJson(),
-            access_token
-        }
-    }
+    //     return {
+    //         ...account.toJson(),
+    //         access_token
+    //     }
+    // }
 
-    @UseGuards(LocalAuthGuard)
-    @Post('login')
-    async postLogin(@Request() request) {
-        const account = request.user
-        const { access_token } = await this.authService.createToken(request.user)
+    // @UseGuards(LocalAuthGuard)
+    // @Post('login')
+    // async postLogin(@Request() request) {
+    //     const account = request.user
+    //     const { access_token } = await this.authService.createToken(request.user)
 
-        return {
-            ...account.toJson(),
-            access_token
-        }
-    }
+    //     return {
+    //         ...account.toJson(),
+    //         access_token
+    //     }
+    // }
 
-    @UseGuards(JwtAuthGuard)
-    @Get('account')
-    async getAccount(@Request() request) {
-        const { access_token } = await this.authService.createToken(request.user)
-        return {
-            ...request.user.toJson(),
-            access_token,
-        }
-    }
+    // @UseGuards(JwtAuthGuard)
+    // @Get('account')
+    // async getAccount(@Request() request) {
+    //     const { access_token } = await this.authService.createToken(request.user)
+    //     return {
+    //         ...request.user.toJson(),
+    //         access_token,
+    //     }
+    // }
 }
