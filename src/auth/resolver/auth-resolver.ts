@@ -5,7 +5,7 @@ import { AccountService } from 'src/account/account.service';
 import { Account } from 'src/account/model/account.model';
 import { AuthService } from 'src/auth/auth.service';
 import { Neo4jGqlTransactionInterceptor } from 'src/neo4j/neo4j-gql-transaction.interceptor';
-import { GqlLocalAuthGuard } from '../gql-local-auth.guards';
+// import { GqlLocalAuthGuard } from '../gql-local-auth.guards';
 import { LoginUserInput } from '../inputType/login-user.input';
 import { LoginResponseType } from '../objectType/login-response.type';
 
@@ -57,12 +57,12 @@ export class AuthResolver {
 //     };
 //   }
 
-    @UseGuards(GqlLocalAuthGuard)
-    @UseInterceptors(Neo4jGqlTransactionInterceptor)
-    @Mutation(returns => LoginResponseType)
-    async login(
-        @Args('loginUserInput') loginUserInput: LoginUserInput
-    ): Promise<LoginResponseType> {
-        return this.authService.login(loginUserInput.email);
-    }
+    // @UseGuards(GqlLocalAuthGuard)
+    // @UseInterceptors(Neo4jGqlTransactionInterceptor)
+    // @Mutation(returns => LoginResponseType)
+    // async login(
+    //     @Args('loginUserInput') loginUserInput: LoginUserInput
+    // ): Promise<LoginResponseType> {
+    //     return this.authService.login(loginUserInput.email);
+    // }
 }

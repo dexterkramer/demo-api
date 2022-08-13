@@ -50,11 +50,11 @@ export class AccountResolver {
         newAccount.lastname
     )
 
-    const { access_token } = await this.authService.createToken(account);
+    // const { access_token } = await this.authService.createToken(account);
 
     return {
       account : account,
-      access_token : access_token
+      // access_token : access_token
     };
   }
 

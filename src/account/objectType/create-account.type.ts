@@ -7,7 +7,7 @@ export class CreateAccountType {
     @Field(type => Account)
     account: Account;
   
-    @Field(type => String)
-    access_token: string;
+    // @Field(type => String)
+    // access_token: string;
 
 }

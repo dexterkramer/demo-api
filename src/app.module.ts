@@ -5,26 +5,16 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AuthModule } from './auth/auth.module';
 import { AccountModule } from './account/account.module';
-import { EncryptionModule } from './encryption/encryption.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Neo4jModule } from './neo4j/neo4j.module';
 import { Neo4jConfig } from './neo4j/neo4j-config.interface';
 import { upperDirectiveTransformer } from './graphql/directives/upper-case.directive';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { join } from 'path';
+import { KeycloakConnectModule, PolicyEnforcementMode, TokenValidation } from 'nest-keycloak-connect';
 
 @Module({
   imports: [
-    // GraphQLModule.forRoot({
-    //   driver: ApolloDriver,
-    //   debug: false,
-    //   playground: true,
-    //   typePaths: ['./**/*.graphql'],
-    //   definitions: {
-    //     path: join(process.cwd(), 'src/graphql.ts'),
-    //     outputAs: 'class',
-    //   },
-    // }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
@@ -42,7 +32,6 @@ import { join } from 'path';
     }),
     AuthModule,
     AccountModule,
-    EncryptionModule,
     ConfigModule.forRoot({ isGlobal: true }),
     Neo4jModule.forRootAsync({
       imports: [ ConfigModule ],
@@ -56,6 +45,18 @@ import { join } from 'path';
         database: configService.get('NEO4J_DATABASE'),
       })
     }),
+    KeycloakConnectModule.register({
+      authServerUrl: 'http://localhost:8080',
+      realm: 'demo',
+      clientId: 'demo-api',
+      secret: 'JPxrIsy7pVSfImEUAWSVFKWgXLqh0le8',
+      bearerOnly: true,
+      realmPublicKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzbbyfC3od0wAXK7/cCHLlozUBxZ/s93ZaHO2bzgix545E6XISBP/V4TK0z5a5ywHRaHa0n8W9fa0px63Lc8rPt/3JrjJAOd1uE0m8jmvuKPyQuOrJwlVkNvUySNSERtcEEC4Z2daMtJTUtgh3LaE34pAMBtAvCNJuFBQBWWrCkc3BF6VENzLbSMeRzmqdGqSYTpVxcPly5u4u6P+9+1bLT/sqDz6/SjR4Bshh2lhbuWqu1IrehRBhqtRzZkkRxIK6+4C6zazJPw9GAfFOoWWw7ReLbxPQ478rL8MiL3wV4kUxsvmytL4knygC3iRgTSz9VjIXMmdttey0qskOLs24wIDAQAB",
+      policyEnforcement: PolicyEnforcementMode.PERMISSIVE, // optional
+      tokenValidation: TokenValidation.ONLINE, // optional
+      // logLevels: ['verbose'],
+      // useNestLogger: false,
+    })
   ],
   controllers: [AppController],
   providers: [

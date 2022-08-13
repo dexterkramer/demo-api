@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Transaction } from 'neo4j-driver';
-import { EncryptionService } from 'src/encryption/encryption.service';
 import { Neo4jService } from 'src/neo4j/neo4j.service';
 import { Account } from './model/account.model';
 
@@ -9,7 +8,6 @@ import { Account } from './model/account.model';
 export class AccountService {
 
     constructor(
-        private readonly encryptionService: EncryptionService,
         private readonly neo4jService: Neo4jService
     ) {}
 
@@ -61,7 +59,7 @@ export class AccountService {
         `, {
             properties: {
                 email,
-                password: await this.encryptionService.hash(password),
+                // password: await this.encryptionService.hash(password),
                 firstname,
                 lastname,
             }

@@ -27,8 +27,6 @@ WORKDIR /usr/src/app
 # Copy all from development stage
 COPY --from=development /usr/src/app/ .
 
-EXPOSE 8080
-
 # Run app
 CMD [ "node", "dist/main" ]
 

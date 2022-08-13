@@ -1,6 +1,4 @@
 import { Controller, Post, Body, UseGuards, Request, Get, UseInterceptors, UsePipes, ValidationPipe, Put, Delete, BadRequestException } from '@nestjs/common';
-import { LocalAuthGuard } from './local-auth.guard';
-import { JwtAuthGuard } from './jwt-auth.guard';
 import { AuthService } from './auth.service';
 import { Neo4jTransactionInterceptor } from '../neo4j/neo4j-transaction.interceptor';
 import { Transaction } from 'neo4j-driver';
