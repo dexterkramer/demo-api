@@ -23,6 +23,7 @@
   "dependencies": {
     "@apollo/gateway": "^2.0.5",
     "@nestjs/apollo": "^10.0.19",
+    "@nestjs/axios": "^0.1.0",
     "@nestjs/common": "^9.0.9",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.9",
@@ -33,7 +34,7 @@
     "class-validator": "^0.13.2",
     "graphql": "^16.5.0",
     "graphql-ws": "^5.10.0",
-    "keycloak-connect": "^19.0.1",
+    "keycloak-connect": "^18.0.2",
     "neo4j-driver": "^4.4.7",
     "nest-keycloak-connect": "^1.9.0",
     "reflect-metadata": "^0.1.13",
