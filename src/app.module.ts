@@ -46,12 +46,12 @@ import { KeycloakConnectModule, PolicyEnforcementMode, TokenValidation } from 'n
       })
     }),
     KeycloakConnectModule.register({
-      authServerUrl: 'http://localhost:8080',
+      authServerUrl: 'http://keycloak:8080',
       realm: 'demo',
       clientId: 'demo-api',
-      secret: 'JPxrIsy7pVSfImEUAWSVFKWgXLqh0le8',
+      secret: 'jsKOzC1LLfy8UIRIdktiXKLSxI185TKn',
       bearerOnly: true,
-      realmPublicKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzbbyfC3od0wAXK7/cCHLlozUBxZ/s93ZaHO2bzgix545E6XISBP/V4TK0z5a5ywHRaHa0n8W9fa0px63Lc8rPt/3JrjJAOd1uE0m8jmvuKPyQuOrJwlVkNvUySNSERtcEEC4Z2daMtJTUtgh3LaE34pAMBtAvCNJuFBQBWWrCkc3BF6VENzLbSMeRzmqdGqSYTpVxcPly5u4u6P+9+1bLT/sqDz6/SjR4Bshh2lhbuWqu1IrehRBhqtRzZkkRxIK6+4C6zazJPw9GAfFOoWWw7ReLbxPQ478rL8MiL3wV4kUxsvmytL4knygC3iRgTSz9VjIXMmdttey0qskOLs24wIDAQAB",
+      // realmPublicKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzbbyfC3od0wAXK7/cCHLlozUBxZ/s93ZaHO2bzgix545E6XISBP/V4TK0z5a5ywHRaHa0n8W9fa0px63Lc8rPt/3JrjJAOd1uE0m8jmvuKPyQuOrJwlVkNvUySNSERtcEEC4Z2daMtJTUtgh3LaE34pAMBtAvCNJuFBQBWWrCkc3BF6VENzLbSMeRzmqdGqSYTpVxcPly5u4u6P+9+1bLT/sqDz6/SjR4Bshh2lhbuWqu1IrehRBhqtRzZkkRxIK6+4C6zazJPw9GAfFOoWWw7ReLbxPQ478rL8MiL3wV4kUxsvmytL4knygC3iRgTSz9VjIXMmdttey0qskOLs24wIDAQAB",
       policyEnforcement: PolicyEnforcementMode.PERMISSIVE, // optional
       tokenValidation: TokenValidation.ONLINE, // optional
       // logLevels: ['verbose'],
