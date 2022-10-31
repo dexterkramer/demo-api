@@ -47,12 +47,12 @@ import { HttpModule } from '@nestjs/axios';
       })
     }),
     KeycloakConnectModule.register({
-      authServerUrl: 'http://keycloak:8080',
+      authServerUrl: 'http://localhost:8080',
       realm: 'demo',
       clientId: 'demo-api',
-      secret: 'GXpOHX3vwdcdbi885TNrE4b9oAd8Ij4b',
+      secret: 'jsKOzC1LLfy8UIRIdktiXKLSxI185TKn',
       bearerOnly: true,
-      realmPublicKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlTYSiXPsHxoGpQ6Z+dJZ6aoVRtDM52N9A2UU7vbpBWZhjgoIj/WGeq/CMUqUsQWYPs4Vaq5er2vvl/p7eYhivCju6j97BuxH0r4avPjtXM7Uq2J0kpy+LQBUkkBcCc4MkLMExXnh4wl0i96pJw2hxiBdifzNcTKFKnwECiFXb/wKc9Np7O/dFVT95y69lCJu4YGIWKxYSRvS3+1QyqRujOjF+IszGrtPmtRjpKeK5v5Vo8BZtnybeDBzRs7sY8+SplM7hc6WQ8DOFkEXfjd98En2LcRorosShjKVeeDC76jWwZiQLTEKTEwMVstxS7SZ1BigWqCRhGb4C0owEncfpQIDAQAB",
+      realmPublicKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1S6xZg3nuQoh04LUS+MIiCusPHtQ73/PUwN6k3o2QSXeBn79K0QIQH7LMECcZ2YhS23AXTjX71hLWBzi498JWKKJjJ8ZpoH1M9lJKx3pDfzeqQD66eq6E25lYG65hNDqzCQABvnw7AsVIY8GMPMrc+o+qfrrGigge5krciX+dD0KY9lo1v1otyZB8UT1V9geEGaWepfpuz73Qc2dU95CH/mPMpatjB1s1WJDzJZWPFQtXmLdFCjn5LBWked6CcMsrZ5cbkooLxbT+Ur0RvYAeDxwxlTX3oqm63uxZgXgk/WiT6i9IWZKniQ7TrXw9ijiblqKm/Ha3kCjx0ApjxCxpQIDAQAB",
       policyEnforcement: PolicyEnforcementMode.PERMISSIVE, // optional
       tokenValidation: TokenValidation.ONLINE, // optional
       // logLevels: ['verbose'],

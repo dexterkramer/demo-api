@@ -9,7 +9,7 @@ export class AppController {
   @Get()
   @UseGuards(AuthGuard)
   getHello(): string {
-    // this.httpService.get('http://keycloak:8080/realms/demo').subscribe((res) => {
+    // this.httpService.get('http://127.0.0.1:8080/realms/demo').subscribe((res) => {
     //   console.log(res);
     // })
     return "Hello";
