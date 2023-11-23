@@ -12,6 +12,7 @@ import { upperDirectiveTransformer } from './graphql/directives/upper-case.direc
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { join } from 'path';
 import { KeycloakConnectModule, KeycloakConnectOptions, PolicyEnforcementMode, TokenValidation } from 'nest-keycloak-connect';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -44,6 +45,11 @@ import { KeycloakConnectModule, KeycloakConnectOptions, PolicyEnforcementMode, T
         password: configService.get('NEO4J_PASSWORD'),
         database: configService.get('NEO4J_DATABASE'),
       })
+    }),
+    HttpModule.register({
+      timeout: 5000,
+      maxRedirects: 5,
+      headers: { 'Access-Control-Allow-Origin': '*' }
     }),
     KeycloakConnectModule.registerAsync({
       imports: [ ConfigModule ],

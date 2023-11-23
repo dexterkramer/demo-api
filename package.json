@@ -40,7 +40,8 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.5.7",
     "ts-morph": "^16.0.0",
-    "ws": "^8.10.0"
+    "ws": "^8.10.0",
+    "@nestjs/axios":"3.0.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.1.4",
